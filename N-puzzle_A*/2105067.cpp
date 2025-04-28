@@ -183,33 +183,33 @@ void reconstructPath(int goalID) {
 }
 
 void ASTERsearch(int (*heuristic)(vector<int>&, vector<int>&)) {
-    priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > pq;
-    
+    priority_queue< pair< pair<int, int>, int >, vector< pair< pair<int, int>, int > >, greater< pair< pair<int, int>, int > > > pq;
+
     stateID.clear();
     level.clear();
     parent.clear();
     states.clear();
     explored = expanded = 0;
 
-    set<vector<int> > closed; 
+    set<vector<int> > closed;
 
     vector<int> start = node;
     stateID[start] = 0;
     states.push_back(start);
     level[0] = 0;
     parent[0] = -1;
-    int f = heuristic(start, goal);
-    pq.push(make_pair(f, 0));
+
+    int hStart = heuristic(start, goal);
+    int gStart = 0;
+    pq.push(make_pair(make_pair(gStart + hStart, hStart), 0)); 
 
     while (!pq.empty()) {
-        pair<int, int> top = pq.top();
-        int id = top.second;
+        pair< pair<int, int>, int > top = pq.top();
         pq.pop();
+        int id = top.second;
         expanded++;
 
-        if (closed.count(states[id])) {
-            continue;
-        }
+        if (closed.count(states[id])) continue;
         closed.insert(states[id]);
 
         if (states[id] == goal) {
@@ -230,9 +230,7 @@ void ASTERsearch(int (*heuristic)(vector<int>&, vector<int>&)) {
                 vector<int> nextState = states[id];
                 swap(nextState[zeroPos], nextState[newZeroPos]);
 
-                if (closed.count(nextState)) {
-                    continue;
-                }
+                if (closed.count(nextState)) continue;
 
                 if (stateID.count(nextState) == 0) {
                     explored++;
@@ -244,13 +242,16 @@ void ASTERsearch(int (*heuristic)(vector<int>&, vector<int>&)) {
 
                     int g = level[newID];
                     int h = heuristic(nextState, goal);
-                    pq.push(make_pair(g + h, newID));
+                    pq.push(make_pair(make_pair(g + h, h), newID));
                 }
             }
         }
     }
+
     cout << "No solution found!" << endl;
 }
+
+
 
 int main(int argc, char* argv[]) {
     ifstream input("input.txt");
@@ -267,7 +268,7 @@ int main(int argc, char* argv[]) {
         input >> node[i];
     }
 
-    input.close(); // Close input after reading
+    input.close(); 
 
     for (int i = 0; i < (k * k) - 1; i++) {
         goal[i] = i + 1;
@@ -300,10 +301,8 @@ int main(int argc, char* argv[]) {
             ASTERsearch(LinearConflict); 
             break;
         default:
-            cout << "Invalid heuristic option! Using default (hamming).\n";
-            ASTERsearch(hamming);
+            ASTERsearch(manhattan);
             break;
     }
-
     return 0;
 }
