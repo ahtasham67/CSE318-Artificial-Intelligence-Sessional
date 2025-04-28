@@ -1,0 +1,9 @@
+g++ 2105067.cpp -o main
+./main
+
+nothing as argument means default heuristic functions
+./ main 1
+./ main 2
+./ main 3
+
+for different heuristic functions like manhattan, hamming, euclidian and Linear conflict functions
