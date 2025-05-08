@@ -9,7 +9,7 @@
 using namespace std;
 
 #define ll long long
-int main() {
+int main(int arc, char *argv[]) {
     // int n = 4;
     // int m = 4;
      //string name = "example_graph";
@@ -49,8 +49,8 @@ int main() {
     // cout << "Average value of greedy heuristic: " << greedy1 << endl;
     // ll semigreedy = semiGreedyHeuristic(g, 0.5);
     // cout << "Average value of semi greedy heuristic: " << semigreedy << endl;
-    string input_file = "set1/g54.rud";
-    string output_file = "statistics.csv";
+    string input_file = argv[1];
+    string output_file = argv[2];
     generate_statistics_from_file(input_file, output_file);
     return 0;
 }

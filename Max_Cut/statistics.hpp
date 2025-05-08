@@ -14,9 +14,9 @@ using namespace std;
 void generate_statistics(graph &g, const string &output_file_name, int number_of_iterations = 5) {
     ofstream output_file(output_file_name, ios::app);
     
-    output_file << "Problem,,,Constructive algorithm,,,Local search,,GRASP,,Known best solution or upper bound" << endl;
-    output_file << "Name,|V| or n,|E| or m,Simple Randomized or Ranomized-1,Simple Greedy or Greedy-1,Semi-greedy-1,Simple local or local-1,,,GRASP-1," << endl;
-    output_file << ",,,,,,No. of iterations,Average value,No. of iterations,Best value," << endl;
+    // output_file << "Problem,,,Constructive algorithm,,,Local search,,GRASP,,Known best solution or upper bound" << endl;
+    // output_file << "Name,|V| or n,|E| or m,Simple Randomized or Ranomized-1,Simple Greedy or Greedy-1,Semi-greedy-1,Simple local or local-1,,,GRASP-1," << endl;
+    // output_file << ",,,,,,No. of iterations,Average value,No. of iterations,Best value," << endl;
 
     long long random_avg = 0;
     for (int i = 0; i < number_of_iterations; ++i)
