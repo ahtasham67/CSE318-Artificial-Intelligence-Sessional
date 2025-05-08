@@ -239,7 +239,6 @@ void ASTERsearch(int (*heuristic)(vector<int>&, vector<int>&)) {
                     states.push_back(nextState);
                     level[newID] = level[id] + 1;
                     parent[newID] = id;
-
                     int g = level[newID];
                     int h = heuristic(nextState, goal);
                     pq.push(make_pair(make_pair(g + h, h), newID));

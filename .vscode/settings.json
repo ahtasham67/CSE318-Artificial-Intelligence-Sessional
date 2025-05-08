@@ -60,6 +60,7 @@
     "text_encoding": "cpp",
     "thread": "cpp",
     "cinttypes": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "iostream": "cpp"
   }
 }
