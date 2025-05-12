@@ -118,6 +118,18 @@ public:
         auto it = adj[u].find(v);
         return it != adj[u].end() ? it->second : 0;
     }
+    vector<vector<pair<int, ll> > > getAdjList() const {
+        vector<vector<pair<int, ll> > > adjList(n);
+        for (int u = 0; u < n; ++u) {
+            for (const auto &entry : adj[u]) {
+                int v = entry.first;
+                ll w = entry.second;
+                adjList[u].emplace_back(v, w);
+            }
+        }
+        return adjList;
+    }
+    
 };
 
 #endif // GRAPH_HPP

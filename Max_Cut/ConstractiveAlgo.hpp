@@ -29,44 +29,39 @@ ll RandomizedHeuristic(graph g, int trial)
     return totalcutweight / trial;
 }
 
-pair< ll, ll >getSigmaXY(graph g, int i, vector<int> assignment){
-    ll sigmaX=0, sigmaY=0;
-    vector<pair<ll, pair<int, int> > > edges = g.getEdges();
-    for (auto edge : edges){
-        int other=-1;
-        if(edge.second.first==i){
-            other=edge.second.second;
-        }
-        else if(edge.second.second==i){
-            other=edge.second.first;
-        }
-        if(other==-1) continue;
-        if(assignment[other]==0) sigmaX+=edge.first;
-        else if(assignment[other]==1) sigmaY+=edge.first;
-    }
-    return make_pair(sigmaX, sigmaY);
-}
+vector<int> greedyHeuristic(graph& g) {
+    int n = g.getN();
+    vector<int> assignment(n, -1);
 
-vector<int> greedyHeuristic(graph g){
-    vector<int> assignment(g.getN(), -1);
-    ll maxweight = -1;
-    pair<ll, pair<int, int> > maxedge = g.getMaxEdge();
-    int u = maxedge.second.first;
-    int v = maxedge.second.second;
+    vector<vector<pair<int, ll> > > adj = g.getAdjList();
+    // for (auto& edge : g.getEdges()) {
+    //     int u = edge.second.first;
+    //     int v = edge.second.second;
+    //     ll w = edge.first;
+    //     adj[u].emplace_back(v, w);
+    //     adj[v].emplace_back(u, w);
+    // }
+    auto maxEdge = g.getMaxEdge();
+    int u = maxEdge.second.first;
+    int v = maxEdge.second.second;
     assignment[u] = 0;
-    assignment[v] = 1;  
-    for (int i = 0; i < g.getN(); i++)
-    {
+    assignment[v] = 1;
+
+    for (int i = 0; i < n; ++i) {
         if (assignment[i] != -1) continue;
-        ll sigmaX=0, sigmaY=0;
-        pair<ll, ll> sigma = getSigmaXY(g, i, assignment);
-        sigmaX = sigma.first;
-        sigmaY = sigma.second;
-        assignment[i] = (sigmaX>sigmaY)? 0 : 1;
-        //cout<<i;
+
+        ll sigmaX = 0, sigmaY = 0;
+        for (auto& [neighbor, weight] : adj[i]) {
+            if (assignment[neighbor] == 0) sigmaX += weight;
+            else if (assignment[neighbor] == 1) sigmaY += weight;
+        }
+
+        assignment[i] = (sigmaX > sigmaY) ? 1 : 0;
     }
+
     return assignment;
 }
+
 vector<int> semiGreedyHeuristic(graph& g, double alpha) {
     int n = g.getN();
     vector<int> assignment(n, -1);
@@ -87,57 +82,62 @@ vector<int> semiGreedyHeuristic(graph& g, double alpha) {
         }
     }
 
-    multiset<ll> sigma_set;
-    map<ll, vector<int> > sigma_map;
-    for (int i = 0; i < n; i++) {
-        if (assignment[i] == -1) {
-            ll maxVal = max(sigma[i].first, sigma[i].second);
-            sigma_set.insert(maxVal);
-            sigma_map[maxVal].push_back(i);
-        }
-    }
-
     for (int step = 0; step < n - 2; step++) {
-        ll wmin = *sigma_set.begin();
-        ll wmax = *sigma_set.rbegin();
+        vector<int> candidates;
+        vector<ll> scores;
+
+        for (int i = 0; i < n; i++) {
+            if (assignment[i] == -1) {
+                ll valX = sigma[i].first;
+                ll valY = sigma[i].second;
+                ll val = max(valX, valY);
+                candidates.push_back(i);
+                scores.push_back(val);
+            }
+        }
+
+        if (candidates.empty()) break;
+
+        // Compute wmin and wmax from σX and σY values over candidates
+        ll wmin = LLONG_MAX, wmax = LLONG_MIN;
+        for (int i : candidates) {
+            wmin = min(wmin, min(sigma[i].first, sigma[i].second));
+            wmax = max(wmax, max(sigma[i].first, sigma[i].second));
+        }
+
         ll cutoff = wmin + alpha * (wmax - wmin);
 
-        auto it = sigma_set.lower_bound(cutoff);
-        if (it == sigma_set.end()) it--;
+        // Construct RCL
+        vector<int> RCL;
+        for (int i : candidates) {
+            ll score = max(sigma[i].first, sigma[i].second);
+            if (score >= cutoff) {
+                RCL.push_back(i);
+            }
+        }
 
-        ll selected_score = *it;
-        int selected_node = sigma_map[selected_score].back();
+        if (RCL.empty()) continue; // skip step or break if necessary
 
+        // Randomly select from RCL
+        int selected_node = RCL[rand() % RCL.size()];
+
+        // Assign to partition
         if (sigma[selected_node].first > sigma[selected_node].second)
             assignment[selected_node] = 1;
         else
             assignment[selected_node] = 0;
 
-        sigma_set.erase(sigma_set.find(selected_score));
-        sigma_map[selected_score].pop_back();
-
         // Update neighbors
         for (auto& [neighbor, weight] : g.adj[selected_node]) {
             if (assignment[neighbor] == -1) {
-                ll old_score = max(sigma[neighbor].first, sigma[neighbor].second);
-                sigma_set.erase(sigma_set.find(old_score));
-
-                auto& vec = sigma_map[old_score];
-                vec.erase(find(vec.begin(), vec.end(), neighbor));
-
                 if (assignment[selected_node] == 0)
                     sigma[neighbor].first += weight;
                 else
                     sigma[neighbor].second += weight;
-
-                ll new_score = max(sigma[neighbor].first, sigma[neighbor].second);
-                sigma_set.insert(new_score);
-                sigma_map[new_score].push_back(neighbor);
             }
         }
     }
 
     return assignment;
 }
-
 #endif

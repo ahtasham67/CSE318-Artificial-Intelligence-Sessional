@@ -8,19 +8,19 @@ using namespace std;
 
 #define ll long long
 
-vector<int> GRASP(graph g, int iter, double alpha, int localiter) {
+vector<int> GRASP(graph g, int iter, double alpha) {
     vector<int> bestAssignment;
     ll bestCutWeight = -1;
 
     for (int i = 0; i < iter; i++) {
         vector<int> assignment = semiGreedyHeuristic(g, alpha);
+        //cout<<g.getMaxCut(assignment)<<endl;
+        auto assignmentIter = LocalSearch(g, assignment);
+        ll cutWeight = g.getMaxCut(assignmentIter.first);
 
-        assignment = LocalSearch(g, assignment, localiter);
-        ll cutWeight = g.getMaxCut(assignment);
-        
         if (cutWeight > bestCutWeight) {
             bestCutWeight = cutWeight;
-            bestAssignment = assignment;
+            bestAssignment = assignmentIter.first;
         }
     }
 
