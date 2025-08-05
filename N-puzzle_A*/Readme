@@ -1,3 +1,6 @@
+🧩 n-Puzzle Solver using A* Search
+Solve the classic n-puzzle problem with A* search and various heuristic functions including Manhattan, Hamming, Euclidean, and Linear Conflict. Choose your heuristic and watch the algorithm in action!
+
 g++ 2105067.cpp -o main
 ./main
 
