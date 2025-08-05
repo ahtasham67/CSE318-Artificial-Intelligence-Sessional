@@ -1,10 +1,10 @@
-# 🤖 Artificial Intelligence Projects Collection
+# 🤖 Artificial Intelligence(CSE-318) OFFLINES
 
 Welcome to my comprehensive collection of AI algorithms and implementations from CSE 318 - Artificial Intelligence Sessional course. This repository showcases various fundamental AI concepts including search algorithms, game theory, machine learning, and optimization techniques.
 
-## 📚 Project Overview
+## 📚 Offlines Overview
 
-| Project                                             | Description                                | Language | Key Algorithms                           |
+| Offline                                             | Description                                | Language | Key Algorithms                           |
 | --------------------------------------------------- | ------------------------------------------ | -------- | ---------------------------------------- |
 | [🧩 N-Puzzle A\*](#-n-puzzle-a-search)              | Sliding puzzle solver using A\* search     | C++      | A\* Search, Manhattan/Hamming Heuristics |
 | [⚛️ Chain Reaction](#%EF%B8%8F-chain-reaction-game) | Strategic board game with AI opponents     | Python   | Minimax, Alpha-Beta Pruning              |
@@ -70,7 +70,7 @@ python backend.py     # Run backend logic
 
 - `frontend.py` - Pygame GUI implementation
 - `backend.py` - Game logic and AI algorithms
-- `2105067.pdf` - Project report
+- `2105067.pdf` - offline report
 
 ---
 
@@ -107,7 +107,7 @@ chmod +x run.sh
 
 ## 📊 Max Cut Optimization
 
-Advanced graph optimization project implementing various metaheuristic algorithms to solve the Maximum Cut problem.
+Advanced graph optimization offline implementing various metaheuristic algorithms to solve the Maximum Cut problem.
 
 ### 🎯 Features
 
@@ -163,11 +163,11 @@ chmod +x run.sh
 **Institution**: Bangladesh University of Engineering and Technology (BUET)  
 **Semester**: [Level 3, term 1](https://www.buet.ac.bd/)
 
-## 📊 Project Statistics
+## 📊 offline Statistics
 
-- **Total Projects**: 4
+- **Total offlines**: 4
 - **Languages Used**: C++, Python
-- **Lines of Code**: 1000+ across all projects
+- **Lines of Code**: 1000+ across all offlines
 - **Algorithms Implemented**: 15+
 - **Test Cases**: 54+ graph instances
 
@@ -180,17 +180,17 @@ chmod +x run.sh
    cd AI
    ```
 
-2. **Navigate to any project**:
+2. **Navigate to any offline**:
 
    ```bash
-   cd [project-name]
+   cd [offline-name]
    ```
 
-3. **Follow project-specific instructions** in each section above
+3. **Follow offline-specific instructions** in each section above
 
 ## 📝 Reports and Documentation
 
-Each project includes comprehensive PDF reports with:
+Each offline includes comprehensive PDF reports with:
 
 - Algorithm explanations
 - Implementation details
@@ -203,7 +203,7 @@ Feel free to explore, learn from, or build upon these implementations. If you fi
 
 ## 📄 License
 
-This project is part of academic coursework. Please respect academic integrity guidelines when referencing or using this code.
+This offline is part of academic coursework. Please respect academic integrity guidelines when referencing or using this code.
 
 ---
 
