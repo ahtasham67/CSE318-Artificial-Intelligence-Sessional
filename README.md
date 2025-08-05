@@ -157,12 +157,6 @@ chmod +x run.sh
 - **Heuristics**: Manhattan Distance, Hamming Distance, Information Gain
 - **Game Theory**: Strategic game playing with evaluation functions
 
-## 🎓 Course Information
-
-**Course**: CSE 318 - Artificial Intelligence Sessional  
-**Institution**: Bangladesh University of Engineering and Technology (BUET)  
-**Semester**: [Level 3, term 1](https://www.buet.ac.bd/)
-
 ## 📊 offline Statistics
 
 - **Total offlines**: 4
@@ -197,18 +191,11 @@ Each offline includes comprehensive PDF reports with:
 - Performance analysis
 - Test results and benchmarks
 
-## 🤝 Contributing
-
-Feel free to explore, learn from, or build upon these implementations. If you find any improvements or bugs, contributions are welcome!
-
-## 📄 License
-
-This offline is part of academic coursework. Please respect academic integrity guidelines when referencing or using this code.
-
----
-
 <div align="center">
 
-_Exploring the fascinating world of Artificial Intelligence through hands-on implementation_
+**Course**: CSE 318 - Artificial Intelligence Sessional  
+**Institution**: Bangladesh University of Engineering and Technology (BUET)  
+**StudentID:2105067**
+**Semester**: [Level 3, term 1](https://www.buet.ac.bd/)
 
 </div>
